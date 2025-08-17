@@ -74,12 +74,20 @@ export const ParticleBackground: React.FC = () => {
     // Initialize particles
     const init = () => {
       particles = [];
-      const particleCount = Math.min(120, Math.floor(window.innerWidth * window.innerHeight / 8000));
+      const particleCount = Math.min(150, Math.floor(window.innerWidth * window.innerHeight / 6000));
       
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
     };
+
+    // Mouse interaction
+    let mouse = { x: 0, y: 0 };
+    const handleMouseMove = (event: MouseEvent) => {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+    };
+    canvas.addEventListener('mousemove', handleMouseMove);
 
     // Animation loop
     const animate = () => {
@@ -87,6 +95,17 @@ export const ParticleBackground: React.FC = () => {
       
       // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
+        // Mouse interaction effect
+        const dx = mouse.x - particles[i].x;
+        const dy = mouse.y - particles[i].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 100) {
+          const force = (100 - distance) / 100;
+          particles[i].x -= (dx / distance) * force * 0.5;
+          particles[i].y -= (dy / distance) * force * 0.5;
+        }
+        
         particles[i].update();
         particles[i].draw();
       }
@@ -94,12 +113,15 @@ export const ParticleBackground: React.FC = () => {
       // Connect nearby particles
       connectParticles();
       
+      // Draw mouse interaction circle
+      drawMouseEffect();
+      
       animationFrameId = requestAnimationFrame(animate);
     };
 
     // Draw lines between close particles
     const connectParticles = () => {
-      const maxDistance = Math.min(180, canvas.width * 0.12);
+      const maxDistance = Math.min(200, canvas.width * 0.15);
       
       for (let a = 0; a < particles.length; a++) {
         for (let b = a; b < particles.length; b++) {
@@ -110,14 +132,31 @@ export const ParticleBackground: React.FC = () => {
           if (distance < maxDistance) {
             const opacity = 1 - (distance / maxDistance);
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(100, 116, 139, ${opacity * 0.3})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(100, 116, 139, ${opacity * 0.4})`;
+            ctx.lineWidth = 1;
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
             ctx.stroke();
           }
         }
       }
+    };
+
+    // Draw mouse interaction effect
+    const drawMouseEffect = () => {
+      if (mouse.x === 0 && mouse.y === 0) return;
+      
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(250, 204, 21, 0.1)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 30, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
     };
 
     // Initialize and start animation
@@ -127,6 +166,7 @@ export const ParticleBackground: React.FC = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', setCanvasDimensions);
+      canvas.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

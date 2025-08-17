@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { SectionTitle } from './common/SectionTitle';
-import { Github, Linkedin, Facebook, Mail, MessageCircle, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Github, Linkedin, Facebook, Mail, MessageCircle, Send, CheckCircle, AlertCircle, Sparkles, Heart } from 'lucide-react';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -119,16 +119,54 @@ export const Contact: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 px-4 md:px-6 relative">
+    <section id="contact" className="py-20 px-4 md:px-6 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-r from-pink-500/5 to-purple-500/5 rounded-full animate-float-slow"></div>
+        <div className="absolute bottom-20 right-20 w-32 h-32 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 rounded-full animate-float-delayed"></div>
+        <div className="absolute top-1/2 right-10 w-24 h-24 bg-gradient-to-r from-yellow-500/5 to-orange-500/5 rounded-full animate-float"></div>
+        
+        {/* Floating hearts */}
+        <div className="absolute top-32 right-32 text-pink-400/20 animate-float">
+          <Heart size={20} />
+        </div>
+        <div className="absolute bottom-40 left-20 text-purple-400/20 animate-float-delayed">
+          <Sparkles size={24} />
+        </div>
+      </div>
+
       <div className="container mx-auto">
-        <SectionTitle>Get In Touch</SectionTitle>
+        <SectionTitle>
+          <span className="inline-flex items-center gap-3">
+            Get In Touch
+            <span className="animate-wave text-3xl">👋</span>
+          </span>
+        </SectionTitle>
+        
+        {/* Contact intro with animated text */}
+        <div className="text-center mb-12">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            <span className="inline-flex items-center gap-2">
+              <Sparkles className="text-yellow-400 animate-pulse" size={20} />
+              Let's create something amazing together!
+              <Heart className="text-pink-400 animate-pulse" size={20} />
+            </span>
+          </p>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
           {/* Contact Information */}
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 transform hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
-            <h3 className="text-2xl font-bold mb-6 text-white">Contact Information</h3>
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 transform hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-500 border border-slate-700/50 hover:border-slate-600/50 relative overflow-hidden">
+            {/* Background animation */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 hover:opacity-100 transition-opacity duration-700"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                <span className="animate-bounce-gentle">📞</span>
+                Contact Information
+              </h3>
             <p className="text-gray-300 mb-8 leading-relaxed">
-              Feel free to reach out to me through any of these platforms. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                Feel free to reach out to me through any of these platforms. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             </p>
             
             <div className="space-y-4 sm:space-y-2 sm:grid sm:grid-cols-1 lg:grid-cols-2 gap-4">
@@ -138,12 +176,15 @@ export const Contact: React.FC = () => {
                   href={link.url} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-4 p-3 rounded-lg transition-all duration-300 ${link.hoverBg}`}
+                  className={`group flex items-center gap-4 p-3 rounded-lg transition-all duration-300 hover:transform hover:-translate-y-1 hover:scale-105 ${link.hoverBg} relative overflow-hidden`}
                 >
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center bg-slate-700 ${link.color} transition-transform duration-300 hover:scale-110`}>
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center bg-slate-700 ${link.color} transition-all duration-300 group-hover:scale-125 group-hover:rotate-12 relative z-10`}>
                     {link.icon}
                   </div>
-                  <div>
+                  <div className="relative z-10">
                     <h4 className="font-medium text-white">{link.name}</h4>
                   </div>
                 </a>
@@ -151,9 +192,9 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Direct Email Info */}
-            <div className="mt-8 p-4 bg-slate-700/30 rounded-lg border border-slate-600">
+              <div className="mt-8 p-4 bg-slate-700/30 rounded-lg border border-slate-600 hover:border-yellow-400/50 transition-all duration-300 hover:bg-slate-700/50">
               <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
-                <Mail size={18} className="text-yellow-400" />
+                  <Mail size={18} className="text-yellow-400 animate-bounce-gentle" />
                 Direct Email
               </h4>
               <p className="text-gray-300 text-sm">
@@ -168,9 +209,9 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Success Badge */}
-            <div className="mt-6 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+              <div className="mt-6 p-3 bg-green-500/10 border border-green-500/30 rounded-lg hover:bg-green-500/20 transition-all duration-300">
               <div className="flex items-center gap-2">
-                <CheckCircle size={16} className="text-green-400" />
+                  <CheckCircle size={16} className="text-green-400 animate-pulse" />
                 <span className="text-green-300 text-sm font-medium">
                   Direct Email Delivery Enabled
                 </span>
@@ -179,12 +220,17 @@ export const Contact: React.FC = () => {
                 Messages sent through the form will be delivered directly to my inbox
               </p>
             </div>
+            </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 transform hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
-            <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-              <Send size={24} className="text-cyan-400" />
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 transform hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-500 border border-slate-700/50 hover:border-slate-600/50 relative overflow-hidden">
+            {/* Background animation */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-purple-500/5 opacity-0 hover:opacity-100 transition-opacity duration-700"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                <Send size={24} className="text-cyan-400 animate-bounce-gentle" />
               Send Me a Message
             </h3>
             
@@ -193,14 +239,14 @@ export const Contact: React.FC = () => {
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                   Your Name *
                 </label>
-                <input
+                  <input
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-slate-700/70 text-white border border-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 placeholder-gray-400"
+                    className="w-full px-4 py-3 rounded-lg bg-slate-700/70 text-white border border-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 placeholder-gray-400 hover:bg-slate-700/90 hover:border-slate-500"
                   placeholder="Rakib Hossain"
                 />
               </div>
@@ -209,14 +255,14 @@ export const Contact: React.FC = () => {
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                   Your Email *
                 </label>
-                <input
+                  <input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-slate-700/70 text-white border border-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 placeholder-gray-400"
+                    className="w-full px-4 py-3 rounded-lg bg-slate-700/70 text-white border border-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 placeholder-gray-400 hover:bg-slate-700/90 hover:border-slate-500"
                   placeholder="rakib@example.com"
                 />
               </div>
@@ -225,14 +271,14 @@ export const Contact: React.FC = () => {
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                   Your Message *
                 </label>
-                <textarea
+                  <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-700/70 text-white border border-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 resize-none placeholder-gray-400"
+                    className="w-full px-4 py-3 rounded-lg bg-slate-700/70 text-white border border-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 resize-none placeholder-gray-400 hover:bg-slate-700/90 hover:border-slate-500"
                   placeholder="Hello Rakib, I'd like to discuss..."
                 ></textarea>
               </div>
@@ -250,12 +296,15 @@ export const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-3 px-6 rounded-lg font-bold text-white transition-all duration-300 flex items-center justify-center gap-2 ${
+                    className={`group w-full py-3 px-6 rounded-lg font-bold text-white transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden ${
                     isSubmitting 
                       ? 'bg-slate-600 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 shadow-lg hover:shadow-cyan-500/25 transform hover:scale-[1.02]'
+                        : 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105 hover:-translate-y-1'
                   }`}
                 >
+                    {!isSubmitting && (
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                    )}
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -263,15 +312,15 @@ export const Contact: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <Send size={18} />
-                      Send Message
+                        <Send size={18} className="relative z-10" />
+                        <span className="relative z-10">Send Message</span>
                     </>
                   )}
                 </button>
               </div>
               
               {submitMessage && (
-                <div className={`p-4 rounded-lg border flex items-start gap-3 animate-slide-in-up ${
+                  <div className={`p-4 rounded-lg border flex items-start gap-3 animate-slide-in-up transform hover:scale-105 transition-transform duration-300 ${
                   submitMessage.type === 'success' 
                     ? 'bg-green-500/10 border-green-500/30 text-green-200' 
                     : 'bg-red-500/10 border-red-500/30 text-red-200'
@@ -287,14 +336,14 @@ export const Contact: React.FC = () => {
             </form>
 
             {/* Alternative Contact Methods */}
-            <div className="mt-6 pt-6 border-t border-slate-600">
+              <div className="mt-6 pt-6 border-t border-slate-600 hover:border-slate-500 transition-colors duration-300">
               <p className="text-gray-400 text-sm text-center">
                 Prefer other methods? You can also reach me via{' '}
                 <a 
                   href="https://wa.me/+8801782086907" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-green-400 hover:text-green-300 font-medium"
+                    className="text-green-400 hover:text-green-300 font-medium hover:underline transition-all duration-300"
                 >
                   WhatsApp
                 </a>
@@ -303,11 +352,12 @@ export const Contact: React.FC = () => {
                   href="https://www.linkedin.com/in/RlM100always" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 font-medium"
+                    className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-all duration-300"
                 >
                   LinkedIn
                 </a>
               </p>
+            </div>
             </div>
           </div>
         </div>
