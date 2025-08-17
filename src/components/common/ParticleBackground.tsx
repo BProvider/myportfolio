@@ -74,7 +74,7 @@ export const ParticleBackground: React.FC = () => {
     // Initialize particles
     const init = () => {
       particles = [];
-      const particleCount = Math.min(100, Math.floor(window.innerWidth * window.innerHeight / 10000));
+      const particleCount = Math.min(120, Math.floor(window.innerWidth * window.innerHeight / 8000));
       
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
@@ -99,7 +99,7 @@ export const ParticleBackground: React.FC = () => {
 
     // Draw lines between close particles
     const connectParticles = () => {
-      const maxDistance = Math.min(150, canvas.width * 0.1);
+      const maxDistance = Math.min(180, canvas.width * 0.12);
       
       for (let a = 0; a < particles.length; a++) {
         for (let b = a; b < particles.length; b++) {
@@ -110,8 +110,8 @@ export const ParticleBackground: React.FC = () => {
           if (distance < maxDistance) {
             const opacity = 1 - (distance / maxDistance);
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(100, 116, 139, ${opacity * 0.2})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(100, 116, 139, ${opacity * 0.3})`;
+            ctx.lineWidth = 0.8;
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
             ctx.stroke();

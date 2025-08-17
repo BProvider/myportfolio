@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { PersonalInfo } from './components/PersonalInfo';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
+import { ProblemSolving } from './components/ProblemSolving';
 import { Certificates } from './components/Certificates';
 import { Achievements } from './components/Achievements';
 import { Contact } from './components/Contact';
@@ -20,6 +21,7 @@ function App() {
         <PersonalInfo />
         <Skills />
         <Projects />
+        <ProblemSolving />
         <Certificates />
         <Achievements />
         <Contact />

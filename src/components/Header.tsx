@@ -55,6 +55,7 @@ export const Header: React.FC = () => {
     { id: 'personal-info', label: 'Personal' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
+    { id: 'problem-solving', label: 'Problem Solving' },
     { id: 'certificates', label: 'Certificates' },
     { id: 'achievements', label: 'Achievements' },
     { id: 'contact', label: 'Contact' }
